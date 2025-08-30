@@ -1,0 +1,15 @@
+../FATFS/Target/user_diskio_spi.c:58:6:HAL_SPI_TransmitReceive_fast	9
+../FATFS/Target/user_diskio_spi.c:102:13:transmit_mmc	1
+../FATFS/Target/user_diskio_spi.c:111:13:receive_mmc1	1
+../FATFS/Target/user_diskio_spi.c:122:12:wait_ready	3
+../FATFS/Target/user_diskio_spi.c:138:13:spi_deselect	1
+../FATFS/Target/user_diskio_spi.c:153:12:spi_select	2
+../FATFS/Target/user_diskio_spi.c:173:12:receive_datablock	3
+../FATFS/Target/user_diskio_spi.c:196:12:transmit_datablock	4
+../FATFS/Target/user_diskio_spi.c:222:13:transmit_mmc1	1
+../FATFS/Target/user_diskio_spi.c:234:13:send_cmd	10
+../FATFS/Target/user_diskio_spi.c:290:9:USER_SPI_status	4
+../FATFS/Target/user_diskio_spi.c:311:9:USER_SPI_initialize	18
+../FATFS/Target/user_diskio_spi.c:399:9:USER_SPI_read	11
+../FATFS/Target/user_diskio_spi.c:442:9:USER_SPI_write	14
+../FATFS/Target/user_diskio_spi.c:492:9:USER_SPI_ioctl	27
