@@ -122,7 +122,7 @@ FATFS    FatFs;							// FAT File System handle
 FIL      fwFile;						// File handle for the firmware file
 FRESULT  result;						// File operation result
 uint32_t fileSize;						// Firmware file size in bytes
-uint8_t  fileBuffer[FILE_BUFFER_SIZE];	// File read buffer
+uint8_t  fileBuffer[FILE_BUFFER_SIZE] __attribute__((aligned(4)));	// File read buffer
 
 /* USER CODE END PV */
 
