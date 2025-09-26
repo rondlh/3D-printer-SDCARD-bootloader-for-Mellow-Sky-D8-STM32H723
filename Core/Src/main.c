@@ -43,31 +43,31 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-#define DEBUG_USART_HANDLE        huart1                                    // The UART to send debug info to
+#define DEBUG_USART_HANDLE       huart1                                 // The UART to send debug info to
 #define VERBOSE_MODE                                                    // Comment out to disable sending info to USART (250K baud)
 #define COMPARE_BEFORE_FLASH                                            // Comment out to not compare the firmware file to the flash contents (faster)
-#define FIRMWARE_FILENAME        "firmware.bin"                            // The firmware file to flash
-#define FIRMWARE_RENAME            "firmware.cur"                            // Rename the firmware after flashing
+#define FIRMWARE_FILENAME        "firmware.bin"                         // The firmware file to flash
+#define FIRMWARE_RENAME          "firmware.cur"                         // Rename the firmware after flashing
 
 // Make sure pins don't interfere with SWD debug pins PA13 and PA14, disable when debugging
-#define PROGRESS_LED_PIN        GPIO_PIN_14                                // Progress LED pin, flashes during flash update
-#define PROGRESS_LED_PORT        GPIOA                                    // Progress LED port
+#define PROGRESS_LED_PIN         GPIO_PIN_14                            // Progress LED pin, flashes during flash update
+#define PROGRESS_LED_PORT        GPIOA                                  // Progress LED port
 
-#define SD_DETECT_PIN            GPIO_PIN_13                                // SD card detect pin, pin PE13
-#define SD_DETECT_PORT            GPIOE                                    // SD card detect port, pin PE13
-#define SD_INIT_DELAY            350U                                    // Delay to allow the SD card to settle
+#define SD_DETECT_PIN            GPIO_PIN_13                            // SD card detect pin, pin PE13
+#define SD_DETECT_PORT           GPIOE                                  // SD card detect port, pin PE13
+#define SD_INIT_DELAY            350U                                   // Delay to allow the SD card to settle
 
-#define DFU_ON_DOUBLE_RESET                                                // Double reset start DFU mode, comment out to disable
-#define DFU_MAGIC_KEY            0xBA5EBA11                                // Magic key to jump to DFU mode
-#define DFU_MAGIC_KEY_ADDRESS    RTC->BKP31R                                // Store the magic key at RTC backup register 31
+#define DFU_ON_DOUBLE_RESET                                             // Double reset start DFU mode, comment out to disable
+#define DFU_MAGIC_KEY            0xBA5EBA11                             // Magic key to jump to DFU mode
+#define DFU_MAGIC_KEY_ADDRESS    RTC->BKP31R                            // Store the magic key at RTC backup register 31
 
-#define FLASHWORD                (FLASH_NB_32BITWORD_IN_FLASHWORD * 4U)    // 32 bytes on STM32H7
-#define FILE_BUFFER_SIZE        4096UL                                    // Must be dividable by FLASHWORD
-#define FLASH_MAX_SECTOR        8U                                        // Max 8 sectors on STM32H7xx (0-7) 128KB each
+#define FLASHWORD                (FLASH_NB_32BITWORD_IN_FLASHWORD * 4U) // 32 bytes on STM32H7
+#define FILE_BUFFER_SIZE         4096UL                                 // Must be dividable by FLASHWORD
+#define FLASH_MAX_SECTOR         8U                                     // Max 8 sectors on STM32H7xx (0-7) 128KB each
 
-#define FLASH_BOOTLOADER_SIZE    0x00020000U                                // Bootloader area size (1 sector)
-#define FLASH_USER_START_SECTOR    1U                                        // Bootloader in sector 0
-#define FLASH_USER_START_ADDR    (FLASH_BASE + FLASH_BOOTLOADER_SIZE)    // Should start on a new sector
+#define FLASH_BOOTLOADER_SIZE    0x00020000U                            // Bootloader area size (1 sector)
+#define FLASH_USER_START_SECTOR  1U                                     // Bootloader in sector 0
+#define FLASH_USER_START_ADDR    (FLASH_BASE + FLASH_BOOTLOADER_SIZE)   // Should start on a new sector
 
 /* STM32 DFU bootloader addresses
    STM32C0   0x1FFF0000 | STM32F030x8 0x1FFFEC00 | STM32F030xC 0x1FFFD800 | STM32F03xx 0x1FFFEC00
