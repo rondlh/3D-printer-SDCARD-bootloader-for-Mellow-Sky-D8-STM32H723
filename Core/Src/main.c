@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2025 STMicroelectronics.
+  * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -17,7 +17,7 @@
   */
 
 /*******************************************************************************************************
-* IRON 2025 smart SD card bootloader for Mellow Fly D8 Pro V1.1 3D printer motherboard (STM32H723VGT6) *
+* IRON 2026 smart SD card bootloader for Mellow Fly D8 Pro V1.1 3D printer motherboard (STM32H723VGT6) *
 ********************************************************************************************************
 * SD card interfacing based on Simplified Spec Physical Layer V9.10 (December 1st 2023)                *
 *******************************************************************************************************/
@@ -62,7 +62,7 @@
 #define DFU_MAGIC_KEY_ADDRESS    RTC->BKP31R                            // Store the magic key at RTC backup register 31
 
 #define FLASHWORD                (FLASH_NB_32BITWORD_IN_FLASHWORD * 4U) // 32 bytes on STM32H7
-#define FILE_BUFFER_SIZE         4096UL                                 // Must be dividable by FLASHWORD
+#define FILE_BUFFER_SIZE         4096UL                                 // Must be divisible by FLASHWORD
 #define FLASH_MAX_SECTOR         8U                                     // Max 8 sectors on STM32H7xx (0-7) 128KB each
 
 #define FLASH_BOOTLOADER_SIZE    0x00020000U                            // Bootloader area size (1 sector)
