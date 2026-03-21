@@ -162,7 +162,6 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
         va_start(va, fmt);
         char debug_msg[255]; // Message buffer
         char * buf = debug_msg;
-        char space_zero;
         char c;
         unsigned int num;
         while ((c = *(fmt++)))
@@ -172,7 +171,7 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
                 int width = 0;
                 int base = 2;
                 int s_int = 0;
-                space_zero = ' ';
+                char space_zero = ' ';
             MORE_FORMAT:
                 c = *(fmt++); // Skip '%', check parameter
                 switch (c)
