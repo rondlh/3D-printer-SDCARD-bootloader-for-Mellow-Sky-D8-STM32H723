@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (13.3.rel1)
+# Toolchain: GNU Tools for STM32 (14.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -67,8 +67,8 @@ all: main-build
 main-build: STM32H723_SDCARD.elf secondary-outputs
 
 # Tool invocations
-STM32H723_SDCARD.elf STM32H723_SDCARD.map: $(OBJS) $(USER_OBJS) D:\CubeIDE\STM32H723_SDCARD\STM32H723VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "STM32H723_SDCARD.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"D:\CubeIDE\STM32H723_SDCARD\STM32H723VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32H723_SDCARD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+STM32H723_SDCARD.elf STM32H723_SDCARD.map: $(OBJS) $(USER_OBJS) D:\git\3D-printer-SDCARD-bootloader-for-Mellow-Sky-D8-STM32H723\STM32H723VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "STM32H723_SDCARD.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"D:\git\3D-printer-SDCARD-bootloader-for-Mellow-Sky-D8-STM32H723\STM32H723VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="STM32H723_SDCARD.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
