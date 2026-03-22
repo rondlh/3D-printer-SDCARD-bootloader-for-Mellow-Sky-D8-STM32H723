@@ -118,11 +118,11 @@ UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
-FATFS    FatFs;    // FAT File System handle
-FIL      fwFile;   // File handle for the firmware file
-FRESULT  result;   // File operation result
-uint32_t fileSize; // Firmware file size in bytes
-uint8_t  fileBuffer[FILE_BUFFER_SIZE] __attribute__((aligned(4))); // File read buffer
+FATFS    FatFs;                        // FAT File System handle
+FIL      fwFile;                       // File handle for the firmware file
+FRESULT  result;                       // File operation result
+uint32_t fileSize;                     // Firmware file size in bytes
+uint8_t  fileBuffer[FILE_BUFFER_SIZE] __attribute__((aligned(32))); // File read buffer
 
 /* USER CODE END PV */
 
@@ -177,8 +177,8 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
                 switch (c)
                 {
                     case '0':
-                    if (width == 0)
-                        space_zero = '0';
+                      if (width == 0)
+                          space_zero = '0';
                     case '1'...'9': // Width indicators
                         width = (width * 10) + c - '0';
                     goto MORE_FORMAT;
@@ -195,10 +195,10 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
                     case 'i': base = 10;
                         s_int = va_arg(va, int);
                         if (s_int < 0)
-                            num = -s_int;
+                               num = -s_int;
                         else
-                            num = s_int;
-                      goto ATOI;
+                              num = s_int;
+                        goto ATOI;
                     case 'x':
                     case 'X':      // Hexadecimal, base 16
                         base += 6; // 2 + 6 + 8 is base 16
@@ -206,7 +206,7 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
                         base += 8; // 2 + 8 is base 10
                     case 'b':      // Binary, base 2
                         num = va_arg(va, unsigned int);
-                      ATOI:
+                    ATOI:
                         char tmp[32]; // 32bit
                         char *q = tmp;
 
@@ -214,19 +214,19 @@ uint32_t crc32b(uint32_t crc, uint8_t *data, uint32_t size)
                         {
                             int rem = '0' + (num % base);
                             if (rem > '9')
-                                rem += 7; // Map to 'ABCDEF'
-                            *(q++) = rem;
+                                  rem += 7; // Map to 'ABCDEF'
+                               *(q++) = rem;
                         } while ((num /= base));
 
                         if (s_int < 0)
-                            *(q++) = '-';
+                              *(q++) = '-';
 
                         width -= q - tmp;
                         while (width-- > 0)
-                            *(buf++) = space_zero;
+                              *(buf++) = space_zero;
 
-                        while (tmp < q) // Reverse data order, "123" --> "321"
-                        *(buf++) = *(--q);
+                           while (tmp < q) // Reverse data order, "123" --> "321"
+                           *(buf++) = *(--q);
                     break;
 
                     case 's':  // String
@@ -282,7 +282,6 @@ uint32_t compareFlashToFile(void)
     int different = 0;
     unsigned int bytesRead;
     int result = f_lseek(&fwFile, 0); // Not strictly needed
-
     while ((i < fileSize) && !result)
     {
         result = f_read(&fwFile, fileBuffer, FILE_BUFFER_SIZE, &bytesRead);
@@ -335,7 +334,6 @@ int CopyFileToFlashMemory(void)
 
     HAL_FLASH_Unlock();
     FRESULT result = f_lseek(&fwFile, 0);
-
     while ((erasedSize < fileSize) && !result)
     {
         uart_printf("Erasing 128KB flash sector %u\r\n", sector);
@@ -365,7 +363,7 @@ int CopyFileToFlashMemory(void)
         i = 0;
         while ((i < bytesRead) && !result)
         {
-            result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, FLASH_USER_START_ADDR + byteCounter + i, (volatile uint32_t)(fileBuffer + i));
+            result = HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, FLASH_USER_START_ADDR + byteCounter + i, (uint32_t)(fileBuffer + i));
             i += FLASHWORD;
         }
         byteCounter += bytesRead;
@@ -436,6 +434,8 @@ int main(void)
 
         uint32_t *vtor = (void*)DFU_BOOTLOADER_ADDRESS;
         SCB->VTOR = (uint32_t)vtor;
+		__DSB();
+		__ISB();
 
         // Make the jump
         asm volatile("MSR msp,%0\nbx %1" : : "r"(vtor[0]), "r"(vtor[1]));
@@ -470,8 +470,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   // Enable all the GPIO clocks for the configurable pins below
-  __HAL_RCC_GPIOA_CLK_ENABLE(); //????? SIMPLIFY!
-  __HAL_RCC_GPIOB_CLK_ENABLE();
+  // GPIOA and GPIOB are enabled above in MX_GPIO_INIT
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
@@ -601,6 +600,8 @@ USER_APP:
 
         uint32_t *vtor = (void*)FLASH_USER_START_ADDR;
         SCB->VTOR = (uint32_t)vtor;
+		__DSB();
+		__ISB();
 
         // Make the jump
         asm volatile("MSR msp,%0\nbx %1" : : "r"(vtor[0]), "r"(vtor[1]));

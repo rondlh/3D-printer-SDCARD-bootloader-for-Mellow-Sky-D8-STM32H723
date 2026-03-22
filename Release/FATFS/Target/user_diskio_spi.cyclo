@@ -6,7 +6,7 @@
 ../FATFS/Target/user_diskio_spi.c:234:13:send_cmd	9
 ../FATFS/Target/user_diskio_spi.c:196:12:transmit_datablock	3
 ../FATFS/Target/user_diskio_spi.c:290:9:USER_SPI_status	4
-../FATFS/Target/user_diskio_spi.c:311:9:USER_SPI_initialize	14
+../FATFS/Target/user_diskio_spi.c:311:9:USER_SPI_initialize	15
 ../FATFS/Target/user_diskio_spi.c:399:9:USER_SPI_read	10
 ../FATFS/Target/user_diskio_spi.c:442:9:USER_SPI_write	13
 ../FATFS/Target/user_diskio_spi.c:492:9:USER_SPI_ioctl	25
